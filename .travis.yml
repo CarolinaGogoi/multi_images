@@ -13,17 +13,25 @@ after_success:
   - docket build -t codergogoi/multi-nginx ./nginx
   - docker build -t codergogoi/multi-server ./server
   - docker build -t codergogoi/multi-worker ./worker
+  # Login in to the docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push to docker hub
+  - docker push codergogoi/multi-client
+  - docker push codergogoi/multi-nginx
+  - docker push codergogoi/multi-server
+  - docker push codergogoi/multi-worker
 
-deploy:
-  provider: elasticbeanstalk
-  edge: true
-  region: ap-south-1
-  app: react_cicd
-  env: "ReactCicd-env"
-  bucket_name: "elasticbeanstalk-ap-south-1-479812415175"
-  bucket_path: "react_cicd"
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_acces_key: $AWS_SECRET_KEY
+
+# deploy:
+#   provider: elasticbeanstalk
+#   edge: true
+#   region: ap-south-1
+#   app: react_cicd
+#   env: "ReactCicd-env"
+#   bucket_name: "elasticbeanstalk-ap-south-1-479812415175"
+#   bucket_path: "react_cicd"
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_acces_key: $AWS_SECRET_KEY
  
