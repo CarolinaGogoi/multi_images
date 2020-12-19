@@ -22,16 +22,16 @@ after_success:
   - docker push codergogoi/multi-worker
 
 
-# deploy:
-#   provider: elasticbeanstalk
-#   edge: true
-#   region: ap-south-1
-#   app: react_cicd
-#   env: "ReactCicd-env"
-#   bucket_name: "elasticbeanstalk-ap-south-1-479812415175"
-#   bucket_path: "react_cicd"
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_acces_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  edge: true
+  region: ap-south-1
+  app: multi-docker
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-479812415175"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_acces_key: $AWS_SECRET_KEY
  
