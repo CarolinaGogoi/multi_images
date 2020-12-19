@@ -12,7 +12,7 @@ class Fibs extends Component {
 
     componentDidMount(){
         this.fetchValues();
-        this.fetchIndex();
+        this.fetchIndexes();
     }
 
     async fetchValues(){
