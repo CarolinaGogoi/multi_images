@@ -17,14 +17,22 @@ class Fibs extends Component {
 
     async fetchValues(){
        
-        const values = await axios.get('/api/values/current');
-        this.setState({ values: values.data });
+        try {
+            const values = await axios.get('/api/values/current');
+            this.setState({ values: values.data });
+        } catch (ex) {
+            console.log(ex)
+        }
 
     }
 
     async fetchIndexes(){
-        const seenIndexes = await axios.get('/api/values/all');
-        this.setState({ seenIndexs: seenIndexes.data });
+        try {
+            const seenIndexes = await axios.get('/api/values/all');
+            this.setState({ seenIndexs: seenIndexes.data });
+        } catch (ex) {
+            console.log(ex)
+        }
      }
 
      handleSubmit = async (event) => {
