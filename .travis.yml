@@ -1,0 +1,29 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t codergogoi/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true codergogoi/react-test npm run test -- --coverage
+
+after_success:
+  - docker build -t codergogoi/multi-client ./client
+  - docket build -t codergogoi/multi-nginx ./nginx
+  - docker build -t codergogoi/multi-server ./server
+  - docker build -t codergogoi/multi-worker ./worker
+
+deploy:
+  provider: elasticbeanstalk
+  edge: true
+  region: ap-south-1
+  app: react_cicd
+  env: "ReactCicd-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-479812415175"
+  bucket_path: "react_cicd"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_acces_key: $AWS_SECRET_KEY
+ 
